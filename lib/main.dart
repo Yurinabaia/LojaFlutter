@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Aplicativo de Loja Virtual',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: Color.fromARGB(255, 4,125,141)
+        primaryColor: Color.fromARGB(255, 4,125,141)//Cor primaria
       ),
       debugShowCheckedModeBanner:  false,
       home: HomeScreen(),

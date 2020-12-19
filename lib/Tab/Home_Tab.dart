@@ -44,7 +44,7 @@ class HomeTab extends StatelessWidget {
               //A função abaixo carregar as imagens da pagina HOME
               FutureBuilder <QuerySnapshot>(
                   future: Firestore.instance.collection("home").orderBy("poc").getDocuments(),//Buscando do banco de dados as imagens
-                  builder: (Context,snapshot) 
+                  builder: (context,snapshot) 
                   {
                     if(!snapshot.hasData)//Se as imagens ainda não estiver carregas tenha uma animação de um cirulo
                     return SliverToBoxAdapter(
