@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:teste2/datas/categorias_Datas.dart';
 
 //stfull
 //stless
@@ -21,7 +22,10 @@ class CategoriasTitle extends StatelessWidget {
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () //Definimos o onTap para realizar uma função, o botão 
       {
-
+          Navigator.of(context).push(//Navegando para proxima pagina, todo Navigator é uma pilha de paginas
+            MaterialPageRoute(builder: (context)=>CategoriasDatas(snapshot))//Mandando os dados para pagina dos produtos;
+            
+          );
       },
     );
   }

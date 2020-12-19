@@ -16,7 +16,7 @@ class ProdutoDatas
     id = snapshot.documentID;
     titulo = snapshot.data['titulo'];
     descricao = snapshot.data['descricao'];
-    preco = snapshot.data['preco'];
+    preco = snapshot.data['preco'] + 0.0;
     img = snapshot.data['img'];
     prescricao = snapshot.data['prescricao'];
 
