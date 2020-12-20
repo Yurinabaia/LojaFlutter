@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:teste2/datas/produtos_Datas.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 //stfull

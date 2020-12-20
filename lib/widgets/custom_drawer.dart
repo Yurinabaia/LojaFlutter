@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:teste2/Title/drawer_title.dart';
+import 'package:teste2/models/user_models.dart';
+import 'package:teste2/screens/Login_Screen.dart';
 
 //stless
 //stfull
@@ -53,37 +56,52 @@ class CustomDraw extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      left: 0,
-                      bottom: 0,
-                      child: Column(
-                        //A coluna server para deixa um abaixo do outro.
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Ola,',
-                            style: TextStyle(
-                                fontSize: 10.0,
-                                fontWeight: FontWeight
-                                    .bold //Definimos o negrito para o texto
+                        left: 0,
+                        bottom: 0,
+                        child: ScopedModelDescendant<UsuarioModel>(//ESSE ScopedModelDescendant FAZ COM QUE O USUARIO MODEL CONSIGA RECEBER TODOS OS DADOS DO FORMULARIO
+                          builder: (context, child, model) {
+                            return Column(
+                              //A coluna server para deixa um abaixo do outro.
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Ola, ${!model.isLogado() ? "" : model.userData['nome']}",
+                                  style: TextStyle(
+                                      fontSize: 10.0,
+                                      fontWeight: FontWeight
+                                          .bold //Definimos o negrito para o texto
+                                      ),
                                 ),
-                          ),
-                          GestureDetector(
-                            //Definimos o botão, aqui vai identificar caso usuario click no botão
-                            child: Text(
-                              "Entre ou cadastre-se >",
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight
-                                      .bold), //Pegando a cor definidar no inicio do app
-                              //fontWeight: FontWeight.bold Definimos o negrito para o texto
-                            ),
-                            onTap: () //Entra acionar o botão
-                                {},
-                          )
-                        ],
-                      ),
-                    )
+                                GestureDetector(
+                                  //Definimos o botão, aqui vai identificar caso usuario click no botão
+                                  child: Text(
+                                    !model.isLogado() ? 
+                                    "Entre ou cadastre-se >"//Se não estiver logado apara
+                                    : "Sair",//Se estiver logado;
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight
+                                            .bold), //Pegando a cor definidar no inicio do app
+                                    //fontWeight: FontWeight.bold Definimos o negrito para o texto
+                                  ),
+                                  onTap: () //Entra acionar o botão
+                                      {
+                                    if(!model.isLogado())    
+                                    Navigator.of(context).push(
+                                        //Substituir a tela de entra com a de criar conta
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()) //Indo para pagina de criação da conta
+                                        );
+                                    else
+                                      model.sigOut();
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        ))
                   ],
                 ),
               ),
