@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste2/Tab/Home_Tab.dart';
 import 'package:teste2/Tab/produtos_tabela.dart';
+import 'package:teste2/widgets/carrinho_Buttom.dart';
 import 'package:teste2/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
         Scaffold(
           body: HomeTab(),
           drawer: CustomDraw(_pageController),
+          floatingActionButton: CarrinhoBotao(),//botao do carrinho
         ),
         
         Scaffold(//Produtos que iram ser criados as categorias.
@@ -25,6 +27,7 @@ class HomeScreen extends StatelessWidget {
           ),
           drawer: CustomDraw(_pageController),
           body: ProdutosTabela(),
+          floatingActionButton: CarrinhoBotao(),//botao do carrinho
         ),
         Container(color: Colors.yellow),
         Container(color: Colors.blue),

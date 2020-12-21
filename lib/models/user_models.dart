@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'dart:async';
+import 'package:flutter/material.dart';
 
 //O Model é o objeto que guardo o status de alguma coisa. Neste caso é o do login
 class UsuarioModel extends Model {
@@ -17,6 +18,9 @@ class UsuarioModel extends Model {
   Map<String, dynamic> userData = Map();//Isso vai guarda todos os dados de cadastro/login que usuario digitar no app 
   bool iscarregando = false;//Carregando pagina
   
+  static UsuarioModel of(BuildContext context) => ScopedModel.of<UsuarioModel>(context);//Qualquer lugar que eu chame eu posso chamar.
+
+
   @override
     void addListener(listener) {
       // TODO: implement addListener

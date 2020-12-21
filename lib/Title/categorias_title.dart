@@ -1,7 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:teste2/datas/categorias_Datas.dart';
+import 'package:teste2/screens/Categorias_Screen.dart';
 
 //stfull
 //stless

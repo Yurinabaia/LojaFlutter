@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:teste2/datas/carrinhoProdutos_Datas.dart';
 import 'package:teste2/datas/produtos_Datas.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:teste2/models/carrinho_models.dart';
+import 'package:teste2/models/user_models.dart';
+import 'package:teste2/screens/Login_Screen.dart';
+import 'package:teste2/screens/Carrrinho_Screen.dart';
 //stfull
 //stless
 
@@ -134,33 +139,50 @@ class _ProdutoScreen extends State<ProdutoScreen> {
                     height: 44.0, //Tamnho do botão
                     child: RaisedButton(
                       //Definindo o botão
-                      onPressed: prescri != null ? 
-                      () {} : null,//Se não estiver cliclado ainda na prescição ele deixa desabilitado o botão
+                      onPressed: prescri != null
+                          ? () {
+                              if (UsuarioModel.of(context).isLogado()) {
+                                CarrinhoDatas carrinhoDatas = CarrinhoDatas();
+                                //Pegando os produtos
+                                carrinhoDatas.prescri = prescri;
+                                carrinhoDatas.quantidade = 1;
+                                carrinhoDatas.pid = produtos.id;
+                                carrinhoDatas.categoria = produtos.categoria;
+                               Navigator.of(context).push(
+                                    //Substituir a tela de entra com a de criar conta
+                                    MaterialPageRoute(
+                                        builder: (context) =>CarrinhoScreen()) //Indo para pagina de logar
+                                    );
+                                CarrinhoModel.of(context).addCarrinho(carrinhoDatas);
+                              } else {
+                                Navigator.of(context).push(
+                                    //Substituir a tela de entra com a de criar conta
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            LoginScreen()) //Indo para pagina de logar
+                                    );
+                              }
+                            }
+                          : null, //Se não estiver cliclado ainda na prescição ele deixa desabilitado o botão
                       //Casi click na prescrição ele habilitar o botão;
                       child: Text(
-                        "Adicionar ao carrinho",
-                        style: TextStyle(
-                          fontSize: 18.0
-                          ),
+                        "${UsuarioModel.of(context).isLogado() ? "Adicionar ao carrinho" : "Fazer Login"} ",
+                        style: TextStyle(fontSize: 18.0),
                       ),
-                      color: corprimaria,//Definimos a cor do botão;
-                      textColor: Colors.white,//Cor das letras do botão
-
+                      color: corprimaria, //Definimos a cor do botão;
+                      textColor: Colors.white, //Cor das letras do botão
                     ),
                   ),
                   //Espaçamento para a descrição do produto
-                  SizedBox(height: 16,),
+                  SizedBox(
+                    height: 16,
+                  ),
                   Text(
                     "Descrição",
                     style:
                         TextStyle(fontSize: 15.0, fontWeight: FontWeight.w500),
                   ),
-                  Text(
-                    produtos.descricao,
-                    style: TextStyle(
-                      fontSize: 16.0
-                    )
-                  )
+                  Text(produtos.descricao, style: TextStyle(fontSize: 16.0))
                 ],
               ),
             )

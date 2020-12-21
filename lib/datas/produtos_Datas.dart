@@ -21,4 +21,14 @@ class ProdutoDatas
     prescricao = snapshot.data['prescricao'];
 
   }
+  //Resumo do pedido
+  Map<String, dynamic> toResumoProduto() 
+  {
+    return 
+    {
+      "titulo": titulo,
+      "descricao": descricao,
+      "preco": preco
+    };
+  }
 }

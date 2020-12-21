@@ -69,7 +69,9 @@ class CategoriasDatas extends StatelessWidget {
                         itemCount: snapshot.data.documents
                             .length, //Pegando a quantidade de produtos que temos para ser apresentado
                         itemBuilder: (context, index) {
-                          return ProdutoTitle("grid", ProdutoDatas.fromDocuments(snapshot.data.documents[index]));
+                          ProdutoDatas datas = ProdutoDatas.fromDocuments(snapshot.data.documents[index]);
+                          datas.categoria = this.snapshot.documentID;//
+                          return ProdutoTitle("grid", datas);
                           //O return acima está pegando o objeto ProdutoDatas, esse objeto vem do banco de dados.
                           //Com esse objeto ficar mais facil trocar de banco de dados depois.
                         }
@@ -79,7 +81,9 @@ class CategoriasDatas extends StatelessWidget {
                         itemCount: snapshot.data.documents
                             .length, //Pegando a quantidade de produtos que temos para ser apresentado
                         itemBuilder: (context, index) {
-                          return ProdutoTitle("list", ProdutoDatas.fromDocuments(snapshot.data.documents[index]));
+                         ProdutoDatas datas = ProdutoDatas.fromDocuments(snapshot.data.documents[index]);
+                         datas.categoria = this.snapshot.documentID;// 
+                          return ProdutoTitle("list", datas);
                           //O return acima está pegando o objeto ProdutoDatas, esse objeto vem do banco de dados.
                           //Com esse objeto ficar mais facil trocar de banco de dados depois.
                         }
