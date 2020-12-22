@@ -4,6 +4,7 @@ import 'package:teste2/Title/carrinho_title.dart';
 import 'package:teste2/models/carrinho_models.dart';
 import 'package:teste2/models/user_models.dart';
 import 'package:teste2/screens/Login_Screen.dart';
+import 'package:teste2/screens/PedidoFinalizado_Screen.dart';
 import 'package:teste2/widgets/diconto_Card.dart';
 import 'package:teste2/widgets/frete_Card.dart';
 import 'package:teste2/widgets/preco_Card.dart';
@@ -110,7 +111,18 @@ class CarrinhoScreen extends StatelessWidget {
                 ),
                 DiscontoPrduto(),//Botão do cupom de desconto;
                 FreteCard(),//Botão do frete.
-                CarrinhoPreco(() {})//Valores a ser pago
+                CarrinhoPreco(() async {//Todo await tem um async e virce versa.
+
+                  String idOrder = await model.finalizarPedido();//Finalizou o pedido, indo para do pagamento.
+                  if(idOrder != null) //Se retorna nada de errado vamos para tela de pagamento.
+                  {
+                      Navigator.of(context).push( //Substituir a tela de entra com a de criar conta
+                        MaterialPageRoute(builder: (context) => PedidoFinalizado(idOrder)//Indo para pagina de pedido finalizado
+                        
+                         )
+                      );
+                  }
+                })//Valores a ser pago
               ],
             );
         },

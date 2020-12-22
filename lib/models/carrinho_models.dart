@@ -100,4 +100,61 @@ class CarrinhoModel extends Model {
   {
     notifyListeners();//Notificação para o app que está carregando
   }
+
+  Future<String> finalizarPedido() //Finalizando
+  async{//Todo async tem um await e vice versa.
+      if(produtos.length == 0) 
+      return null; //MEDIDA DE SEGURAÇA
+
+      isCarregandoProduto = true;
+      notifyListeners();//Notificação para o app que está carregando
+
+//Pegando os dados do meu pedido
+      double precoPrduto = valorSemDesconto();
+      double descontoProduto = valorComDesconto();
+      double entregar = valorDaEntregar();
+
+
+//Adicinando pedido na coleção orders
+   DocumentReference refOrder = await Firestore.instance.collection("orders").add(
+      { 
+          "cliente": usuario.firebaseusuario.uid,//Id do usuario.
+          "produtos": produtos.map((carrinhoDatas)=>carrinhoDatas.toMap()).toList(),//Salvando o map
+          "frete": entregar,//Salvado o valor da entregar
+          "precoPrduto": precoPrduto,//Salvando o valor do produto
+          "descontoProduto": descontoProduto,//Salvando o desconto
+          "total": entregar + precoPrduto - descontoProduto,//Total final
+          "status": 1
+          //Status
+          //1 ele está preparando 
+          //2 terminou de preparar
+          //3 Já enviou
+          //4 Já entregou
+      }); 
+
+//Salvando o order id no usuario;
+     await Firestore.instance.collection("usuarios").document(usuario.firebaseusuario.uid).
+      collection("orders").document(refOrder.documentID).setData({
+          "orderId" : refOrder.documentID,
+      });
+
+//Excluindo todos os pedidos do carrinho, depois que usuario passar para pagina compra
+
+  QuerySnapshot query = await Firestore.instance.collection("usuarios").document(usuario.firebaseusuario.uid)
+  .collection("carrinho").getDocuments();//Peguei todos os produtos do carrinho
+
+    for (DocumentSnapshot doc in query.documents)
+    {
+      doc.reference.delete();//Deletando todos os produtos do carrinho.
+    }
+
+    produtos.clear();//Lipando a lista de produtos.
+    descontoCumpo = 0;//Limpando o cupom
+    cupom = null;//Limpando o cupom
+
+    isCarregandoProduto = false;//Paramos de carregar
+    notifyListeners();//Notificação para o app que está carregando
+
+    return refOrder.documentID;
+  }
 }
