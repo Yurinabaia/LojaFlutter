@@ -11,6 +11,9 @@ class CarrinhoModel extends Model {
       usuario; //Usuario atual, que vai armazenar os produtos do usuario.
   List<CarrinhoDatas> produtos = []; //Uma lista com os produtos.
 
+
+  String cupom;
+  int descontoCumpo = 0;
   static CarrinhoModel of(BuildContext context) => ScopedModel.of<CarrinhoModel>(context); //Acesso a qualquer lugar do app
   CarrinhoModel(this.usuario){
     if(usuario.isLogado())
@@ -64,6 +67,37 @@ class CarrinhoModel extends Model {
     QuerySnapshot snapshot =  await  Firestore.instance.collection("usuarios").document(usuario.firebaseusuario.uid).
     collection("carrinho").getDocuments();//Pegar todos os documentos do carrinho
     produtos = snapshot.documents.map((doc)=> CarrinhoDatas.fromDocuments(doc)).toList();
-        notifyListeners();//Notificação para o app que está carregando
+    notifyListeners();//Notificação para o app que está carregando
+  }
+
+  void aplicarCupom(String cupom, int descontoCumpo)//Função que aplicar o cupom
+  {
+    this.cupom = cupom;//O codigo do cupom
+    this.descontoCumpo = descontoCumpo;//O valor do desconto em porcentagem
+  }
+  double valorSemDesconto() 
+  {
+    double preco = 0.0;
+    for(CarrinhoDatas car in produtos) //Pegar cada um dos meus produtos;
+    {
+      if(car.produtoDatas != null) //Se estiver carregar os produtos;
+      {
+        preco += car.quantidade * car.produtoDatas.preco;//Mutiplicando com a quantidade de produtos no carrinho.
+
+      }
+    }
+    return preco;
+  }
+  double valorComDesconto() 
+  {
+    return valorSemDesconto() * descontoCumpo /100;//Aplicando o desconto nos pedidos;
+  }
+  double valorDaEntregar() 
+  {
+      return 10.0;
+  }
+  void atualizarPaginar()//Atualizar pagina de pedidos para mostra os valores da compra 
+  {
+    notifyListeners();//Notificação para o app que está carregando
   }
 }

@@ -4,6 +4,9 @@ import 'package:teste2/Title/carrinho_title.dart';
 import 'package:teste2/models/carrinho_models.dart';
 import 'package:teste2/models/user_models.dart';
 import 'package:teste2/screens/Login_Screen.dart';
+import 'package:teste2/widgets/diconto_Card.dart';
+import 'package:teste2/widgets/frete_Card.dart';
+import 'package:teste2/widgets/preco_Card.dart';
 
 //stfull
 //stless
@@ -104,7 +107,10 @@ class CarrinhoScreen extends StatelessWidget {
                       return CarrinhoTitle(produtos);
                   }
                 ).toList()
-                )
+                ),
+                DiscontoPrduto(),//Botão do cupom de desconto;
+                FreteCard(),//Botão do frete.
+                CarrinhoPreco(() {})//Valores a ser pago
               ],
             );
         },

@@ -14,6 +14,7 @@ class CarrinhoTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     //Mostrando o card dos produtos do carrinho
     Widget _buldContet() {
+      CarrinhoModel.of(context).atualizarPaginar();//Atualizar paginar para fazer a soma dos pedidos.
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,//Alinha
         children: <Widget>[
