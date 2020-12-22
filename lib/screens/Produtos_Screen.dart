@@ -148,6 +148,7 @@ class _ProdutoScreen extends State<ProdutoScreen> {
                                 carrinhoDatas.quantidade = 1;
                                 carrinhoDatas.pid = produtos.id;
                                 carrinhoDatas.categoria = produtos.categoria;
+                                carrinhoDatas.produtoDatas = produtos;
                                Navigator.of(context).push(
                                     //Substituir a tela de entra com a de criar conta
                                     MaterialPageRoute(

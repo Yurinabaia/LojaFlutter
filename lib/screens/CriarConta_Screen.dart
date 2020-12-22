@@ -144,7 +144,7 @@ class _SignScreenState extends State<SignScreen> {
         SnackBar(
       content: Text("Usuario criado com sucesso"),
       backgroundColor: Theme.of(context).primaryColor,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
     ));
     Future.delayed(Duration(seconds: 2)).then((_) {
       Navigator.of(context)
@@ -154,11 +154,11 @@ class _SignScreenState extends State<SignScreen> {
 
   void _faliled() {
     _scaffold.currentState.showSnackBar(
-        //Barra que vai aparecer depois de criar o usuario com sucesso.
+        //Barra que vai aparecer se o usuario não conseguir logar.
         SnackBar(
       content: Text("Erro ao criar o usuário"),
       backgroundColor: Colors.redAccent,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
     ));
   }
 }

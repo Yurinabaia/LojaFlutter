@@ -30,7 +30,8 @@ class CarrinhoDatas
       "pid": pid,
       "quantidade": quantidade,
       "prescri": prescri,
-     // "product": produtoDatas.toResumoProduto()//Resumo do pedido 
+      "titulo": produtoDatas.titulo,
+      "product": produtoDatas.toResumoProduto()//Resumo do pedido 
     };
   }
 }
