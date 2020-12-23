@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:teste2/Tab/Home_Tab.dart';
+import 'package:teste2/Tab/home_Tab.dart';
 import 'package:teste2/Tab/produtos_tabela.dart';
+import 'package:teste2/Tab/meuspedidos_Tab.dart';
+import 'package:teste2/Tab/lojas_Tab.dart';
 import 'package:teste2/widgets/carrinho_Buttom.dart';
 import 'package:teste2/widgets/custom_drawer.dart';
 
@@ -29,9 +31,25 @@ class HomeScreen extends StatelessWidget {
           body: ProdutosTabela(),
           floatingActionButton: CarrinhoBotao(),//botao do carrinho
         ),
-        Container(color: Colors.yellow),
-        Container(color: Colors.blue),
-        Container(color: Colors.green),
+        //Lojas
+        Scaffold(
+            appBar: AppBar(
+              title: Text("Lojas"),
+              centerTitle: true,
+            ),
+        body: LojasTab(),
+        drawer: CustomDraw(_pageController),
+        ),
+
+        //Meus pedidos
+        Scaffold(
+            appBar: AppBar(
+            title: Text("Meus pedidos"),
+            centerTitle: true,
+        ),
+        body: MeusPedidos(),
+        drawer: CustomDraw(_pageController),
+        )
       ],
     );
   }
