@@ -29,7 +29,8 @@ class MeusPedidos extends StatelessWidget {
               else 
               {
                 return ListView(
-                  children: snapshot.data.documents.map((doc)=>PedidosTitle(doc.documentID)).toList()
+                  children: snapshot.data.documents.map((doc)=>PedidosTitle(doc.documentID)).toList().reversed.toList(),
+                  //Aqui estou buscando os meus pedidos e o reverse serve para os pedidos ficarem em primeiro.
                 );
               }
           },
